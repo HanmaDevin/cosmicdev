@@ -88,6 +88,8 @@ copy_config() {
     sudo cp -r "$repo/Cursor/Bibata-Modern-Ice" "/usr/share/icons"
     sudo cp -r "$repo/fonts/" "/usr/share"
 
+    cp -r "$repo/go" "$HOME"
+
     sudo cp -r "$repo/icons/" "/usr/share/"
 
     echo "Trying to change the SHELL..."
