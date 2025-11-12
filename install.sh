@@ -11,7 +11,7 @@ repo="$HOME/cosmicdev"
 cfgPath="$repo/.config"
 
 install_packages() {
-  local packages=("python-pip" "libreoffice" "qbittorrent" "glow" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "cargo" "rust-all" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "jq" "rustfmt" "btop" "bzip2")
+  local packages=("python-pip" "mpv-mpris" "playerctl" "mpv" "libreoffice" "qbittorrent" "glow" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "cargo" "rust-all" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "jq" "rustfmt" "btop" "bzip2")
   for pkg in "${packages[@]}"; do
     sudo apt install -y "$pkg"
   done
@@ -37,6 +37,19 @@ install_packages() {
 
   # install rust-analyzer
   sudo cp "$repo/bin/rust-analyzer" /usr/bin
+
+  # install fzf
+  local fzf_version=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | jq .tag_name | grep -o --color=never "\d.\d+.\d")
+  wget -O fzf.tar.gz "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz"
+  sudo tar xvzf ./fzf.tar.gz -C /usr/bin/
+
+  printf ">>> Do you want to install ani-cli (y/n)?\n"
+  read -r ani
+  if [[ "$ani" =~ [yY] ]]; then
+    git clone "https://github.com/pystardust/ani-cli.git" "$HOME/ani-cli"
+    sudo cp "$HOME/ani-cli/ani-cli" /usr/local/bin
+    rm -rf "$HOME/ani-cli"
+  fi
 }
 
 install_deepcool_driver() {
