@@ -47,3 +47,10 @@ alias startdocker="systemctl start docker"
 
 starship init fish | source
 zoxide init fish | source
+
+
+set FNM_PATH "/home/devin/.local/share/fnm"
+if [ -d "$FNM_PATH" ]
+    set PATH "$FNM_PATH" $PATH
+    fnm env | source
+end

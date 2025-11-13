@@ -11,7 +11,7 @@ repo="$HOME/cosmicdev"
 cfgPath="$repo/.config"
 
 install_packages() {
-  local packages=("python-pip" "libreoffice" "qbittorrent" "glow" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "cargo" "rust-all" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "rustfmt" "btop" "bzip2")
+  local packages=("python-pip" "libreoffice" "qbittorrent" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "cargo" "rust-all" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "rustfmt" "btop" "bzip2")
   for pkg in "${packages[@]}"; do
     sudo apt install -y "$pkg"
   done
@@ -22,7 +22,6 @@ install_packages() {
 
   # install nodejs and npm
   curl -o- https://fnm.vercel.app/install | bash
-  fnm install 25
 
   # install_lazygit
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
@@ -32,7 +31,7 @@ install_packages() {
 
   # fastfetch-cli
   local fetch_version
-  fetch_version=$(curl -s "https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest" | jq .tag_name | grep -o "\d.\d+.\d")
+  fetch_version=$(curl -s "https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest" | jq .tag_name | grep -Po --color=never "\d.\d+.\d")
   wget -O fetch.deb "https://github.com/fastfetch-cli/fastfetch/releases/download/${fetch_version}/fastfetch-linux-amd64.deb"
   sudo apt install ./fetch.deb
 
@@ -41,9 +40,15 @@ install_packages() {
 
   # install fzf
   local fzf_version
-  fzf_version=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | jq .tag_name | grep -o --color=never "\d.\d+.\d")
+  fzf_version=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | jq .tag_name | grep -Po --color=never "\d.\d+.\d")
   wget -O fzf.tar.gz "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz"
   sudo tar xvzf ./fzf.tar.gz -C /usr/bin/
+
+  local nvim_version
+  nvim_version=$(curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | jq .tag_name | grep -Po --color=never "\d.\d+.\d")
+  wget -O nvim "https://github.com/neovim/neovim/releases/download/v${nvim_version}/nvim-linux-x86_64.appimage"
+  chmod +x ./nvim
+  sudo cp ./nvim /usr/bin/
 
   printf ">>> Do you want to install ani-cli (y/n)?\n"
   read -r ani
@@ -130,15 +135,11 @@ copy_config() {
 
     cp -r "$cfgPath" "$HOME/"
 
-    sudo cp -r "$repo/Cursor/Bibata-Modern-Ice" "/usr/share/icons"
     sudo cp -r "$repo/fonts/" "/usr/share"
 
     cp -r "$repo/go" "$HOME"
 
-    sudo cp -r "$repo/icons/" "/usr/share/"
-
     echo "Trying to change the SHELL..."
-    sleep 2
     chsh -s /usr/bin/fish
   fi
 }
@@ -241,9 +242,10 @@ sudo apt update -y
 sudo apt upgrade
 
 # Install required packages
-install_packages
 echo ">>> Installing required packages..."
 sleep 2
+install_packages
+get_wallpaper
 detect_nvidia
 install_discord
 install_deepcool_driver
