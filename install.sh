@@ -31,7 +31,8 @@ install_packages() {
   sudo install lazygit -D -t /usr/local/bin/
 
   # fastfetch-cli
-  local fetch_version=$(curl -s "https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest" | jq .tag_name | grep -o "\d.\d+.\d")
+  local fetch_version
+  fetch_version=$(curl -s "https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest" | jq .tag_name | grep -o "\d.\d+.\d")
   wget -O fetch.deb "https://github.com/fastfetch-cli/fastfetch/releases/download/${fetch_version}/fastfetch-linux-amd64.deb"
   sudo apt install ./fetch.deb
 
@@ -39,7 +40,8 @@ install_packages() {
   sudo cp "$repo/bin/rust-analyzer" /usr/bin
 
   # install fzf
-  local fzf_version=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | jq .tag_name | grep -o --color=never "\d.\d+.\d")
+  local fzf_version
+  fzf_version=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | jq .tag_name | grep -o --color=never "\d.\d+.\d")
   wget -O fzf.tar.gz "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz"
   sudo tar xvzf ./fzf.tar.gz -C /usr/bin/
 
