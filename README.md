@@ -20,6 +20,11 @@ cd $HOME/cosmicdev/
 ./install.sh
 ```
 
+## Upgrading packages
+
+fzf, neovim, fastfetch and lazygit can be updated via
+the scripts in the `scripts` directory
+
 ### Nvidia
 
 The install script scans for nvidia hardware and installs the driver for you.
