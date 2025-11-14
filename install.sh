@@ -11,7 +11,7 @@ repo="$HOME/cosmicdev"
 cfgPath="$repo/.config"
 
 install_packages() {
-  local packages=("python-pip" "libreoffice" "qbittorrent" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "cargo" "rust-all" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "rustfmt" "btop" "bzip2")
+  local packages=("python-pip" "libreoffice" "qbittorrent" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "btop" "bzip2")
   for pkg in "${packages[@]}"; do
     sudo apt install -y "$pkg"
   done
@@ -59,6 +59,8 @@ install_packages() {
     sudo cp "$HOME/ani-cli/ani-cli" /usr/local/bin
     rm -rf "$HOME/ani-cli"
   fi
+
+  curl https://sh.rustup.rs -sSf | sh
 }
 
 install_deepcool_driver() {
