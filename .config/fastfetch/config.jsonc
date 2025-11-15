@@ -12,66 +12,66 @@
     "padding": {
       "top": 1,
       "right": 1,
-      "left": 1
+      "left": 1,
     },
-    "position": "top"
+    "position": "top",
   },
   "display": {
-    "separator": "  "
+    "separator": "  ",
   },
   "modules": [
     {
       "key": "╭───────────╮",
-      "type": "custom"
+      "type": "custom",
     },
     {
       "key": "│ {#31} user    {#keys}│",
       "type": "title",
-      "format": "{#31}{user-name}"
+      "format": "{#31}{user-name}",
     },
     {
       "key": "│ {#32}󰇅 hname   {#keys}│",
       "type": "title",
-      "format": "{#32}{host-name}"
+      "format": "{#32}{host-name}",
     },
     {
       "key": "│ {#33}󰅐 uptime  {#keys}│",
       "type": "uptime",
-      "format": "{#33}{formatted}"
+      "format": "{#33}{formatted}",
     },
     {
       "key": "│ {#34}{icon} distro  {#keys}│",
       "type": "os",
-      "format": "{#34}{name}"
+      "format": "{#34}{name}",
     },
     {
       "key": "│ {#36}󰇄 desktop {#keys}│",
       "type": "de",
-      "format": "{#36}{pretty-name}"
+      "format": "{#36}{pretty-name}",
     },
     {
       "key": "│ {#31} term    {#keys}│",
       "type": "terminal",
-      "format": "{#31}{pretty-name}"
+      "format": "{#31}{pretty-name}",
     },
     {
       "key": "│ {#32} shell   {#keys}│",
       "type": "shell",
-      "format": "{#32}{pretty-name}"
+      "format": "{#32}{pretty-name}",
     },
     {
       "key": "│ {#33}󰍛 cpu     {#keys}│",
       "type": "cpu",
-      "format": "{#33}{name}"
+      "format": "{#33}{name}",
     },
     {
       "key": "│ {#35}󰍛 gpu     {#keys}│",
       "type": "gpu",
-      "format": "{#35}{name}"
+      "format": "{#35}{name}",
     },
     {
       "key": "╰───────────╯",
-      "type": "custom"
-    }
-  ]
+      "type": "custom",
+    },
+  ],
 }
