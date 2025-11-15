@@ -11,7 +11,7 @@ repo="$HOME/cosmicdev"
 cfgPath="$repo/.config"
 
 install_packages() {
-  local packages=("python-pip" "libreoffice" "qbittorrent" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "btop" "bzip2" "kitty")
+  local packages=("python-pip" "libreoffice" "qbittorrent" "gnome-tweaks" "ntfs-3g" "ufw" "fish" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "btop" "bzip2")
   for pkg in "${packages[@]}"; do
     sudo apt install -y "$pkg"
   done
@@ -19,6 +19,13 @@ install_packages() {
   cargo install starship
   cargo install eza
   cargo install zoxide
+
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
+  cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+  cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+  ed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+  sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
 
   # install nodejs and npm
   curl -o- https://fnm.vercel.app/install | bash
