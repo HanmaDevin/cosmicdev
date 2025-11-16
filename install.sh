@@ -135,14 +135,14 @@ copy_config() {
       mkdir -p "$HOME/Pictures/Screenshots/"
     fi
 
-    cp -r "$cfgPath" "$HOME/"
+    cp -r "$cfgPath" "$HOME"
+    cp "$repo/.bashrc" "$HOME"
+    cp "$repo/.bash_aliases" "$HOME"
 
     sudo cp -r "$repo/fonts/" "/usr/share"
 
     cp -r "$repo/go" "$HOME"
 
-    echo "Trying to change the SHELL..."
-    chsh -s /usr/bin/fish
   fi
 }
 
