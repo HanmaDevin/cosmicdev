@@ -28,12 +28,14 @@ install_packages() {
   curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
   tar xf lazygit.tar.gz lazygit
   sudo install lazygit -D -t /usr/local/bin/
+  rm ./lazygit.tar.gz
 
   # fastfetch-cli
   local fetch_version
   fetch_version=$(curl -s "https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest" | jq .tag_name | grep -Po --color=never "\d.\d+.\d")
   wget -O fetch.deb "https://github.com/fastfetch-cli/fastfetch/releases/download/${fetch_version}/fastfetch-linux-amd64.deb"
   sudo apt install ./fetch.deb
+  rm ./fetch.deb
 
   # install rust-analyzer
   sudo cp "$repo/bin/rust-analyzer" /usr/bin
@@ -43,12 +45,13 @@ install_packages() {
   fzf_version=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | jq .tag_name | grep -Po --color=never "\d.\d+.\d")
   wget -O fzf.tar.gz "https://github.com/junegunn/fzf/releases/download/v${fzf_version}/fzf-${fzf_version}-linux_amd64.tar.gz"
   sudo tar xvzf ./fzf.tar.gz -C /usr/bin/
+  rm ./fzf.tar.gz
 
   local nvim_version
   nvim_version=$(curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | jq .tag_name | grep -Po --color=never "\d.\d+.\d")
   wget -O nvim "https://github.com/neovim/neovim/releases/download/v${nvim_version}/nvim-linux-x86_64.appimage"
   chmod +x ./nvim
-  sudo cp ./nvim /usr/bin/
+  sudo mv ./nvim /usr/bin/
 
   printf ">>> Do you want to install ani-cli (y/n)?\n"
   read -r ani
