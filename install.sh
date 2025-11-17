@@ -11,7 +11,7 @@ repo="$HOME/cosmicdev"
 cfgPath="$repo/.config"
 
 install_packages() {
-  local packages=("python-pip" "zsh" "libreoffice" "qbittorrent" "tree" "gnome-tweaks" "ntfs-3g" "ufw" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "btop" "bzip2")
+  local packages=("python-pip" "libreoffice" "qbittorrent" "tree" "gnome-tweaks" "ntfs-3g" "ufw" "gamemode" "mangohud" "bat" "openjdk-21-jdk" "docker" "ripgrep" "fd" "wine" "openssh" "pam-u2f" "libfido2" "texlive-full" "nala" "jq" "btop" "bzip2")
   for pkg in "${packages[@]}"; do
     sudo apt install -y "$pkg"
   done
@@ -146,9 +146,6 @@ copy_config() {
     sudo cp -r "$repo/fonts/" "/usr/share"
 
     cp -r "$repo/go" "$HOME"
-
-    echo ">>> Trying to change the SHELL..."
-    sudo chsh -s /bin/zsh
   fi
 }
 
